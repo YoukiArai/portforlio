@@ -112,19 +112,25 @@ header li:hover{
     text-align: center;
     letter-spacing: 0.5em;
     font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;
-    font-size: 15px;
+    font-size: 13px;
+}
+
+.my_name{
+    margin-bottom: 50px;
+    font-size: 25px;
 }
 
 .profile{
     margin-bottom: 100px;
 }
 
+
+
 .works ul{
     display: flex;
     list-style: none;
-    justify-content:center;
+    justify-content:center;   
 }
-
 .works img{
     width:387px;
     height:259px;
@@ -146,7 +152,12 @@ header li:hover{
 
 .li_message{
     font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;;
-    font-size: 15px;
+    font-size: 17px;
     text-align: center;
+    letter-spacing: 0.5em;
+    
 }
 
+footer{
+    height: 250px;
+}
