@@ -1,0 +1,40 @@
+header{
+    width:100%;
+    height:80px;
+
+
+
+    display: inline-block;
+    background-color:white;
+
+
+
+    border-bottom: solid 5px white;
+}
+
+header a{
+    font-family: "ニコ角";
+    font-size:20px;
+    text-decoration: none;
+    margin:10px;
+}
+
+header a:visited{
+    color: white;/*カラーコードは任意*/
+}
+header ul{
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.header_logo{
+    float: left;
+}
+
+.header_logo_img{
+    height:80px;
+}
+
+.header_link{
+    float: right;
+    line-height: 80px;
+}
