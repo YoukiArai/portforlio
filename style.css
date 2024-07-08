@@ -1,0 +1,152 @@
+
+
+
+body{
+    background-color: rgb(245,245,245);
+}
+
+h2{
+    color: rgb(10,10,10);
+}
+
+.top_img_img{
+    height: 518px;
+    width:345px;
+    position: absolute;
+    top: 15%;
+    left:30%
+}
+
+.top_img{
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.top_title{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.top_title_h2{
+    position: absolute;
+    top:40%;
+    left:15%;
+    font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;
+    line-height:15px;
+    letter-spacing: 1em;
+}
+
+.top{
+    display: flex;   
+    height: 100vh; 
+}
+
+header{
+    font-size: 15px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    color:  rgb(245,245,245);
+    line-height: 50px;
+    letter-spacing: 0.5em;
+    color: black;
+    font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;
+    
+}
+
+header a{
+    font: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+a:visited{
+    color: black;
+}
+
+header li{
+    display: flex;
+    float: left;
+    list-style: none;
+    overflow: hidden;
+}
+
+header li::after{
+    content: "/";
+}
+header li:hover{
+    background-color: rgb(245,245,245);
+    color: rgb(10,10,10);    
+}
+
+.container{
+    width:1080px;
+    margin: 0 auto;
+}
+
+.about{
+    text-align: center;
+    
+}
+
+.top_title_h2_name{
+    font-size: 40px;
+}
+
+.top_title_h2_port{
+    font-size: 25px;
+    letter-spacing: 1.3em;
+}
+
+.section_title{
+    letter-spacing: 1em;
+    font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;
+    text-align: center;
+    font-size: 35px;
+}
+
+.prof_maintext{
+    text-align: center;
+    letter-spacing: 0.5em;
+    font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;
+    font-size: 15px;
+}
+
+.profile{
+    margin-bottom: 100px;
+}
+
+.works ul{
+    display: flex;
+    list-style: none;
+    justify-content:center;
+}
+
+.works img{
+    width:387px;
+    height:259px;
+}
+
+.works li{
+
+    margin-left: 35px;
+
+}
+
+.li_title{
+    font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+
+}
+
+.li_message{
+    font-family: "ヒラギノ明朝 Pro W6","Hiragino Mincho Pro","HGS明朝E","ＭＳ Ｐ明朝",serif;;
+    font-size: 15px;
+    text-align: center;
+}
+
