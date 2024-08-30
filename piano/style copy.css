@@ -1,0 +1,65 @@
+.key{
+    margin: 0;
+    width:100px;
+    height:500px;
+    padding: 0;
+    background-color: antiquewhite;
+    font-size: 50px;
+    padding-top: 350px;
+
+    
+}
+
+.container{
+    width:1024px;
+    margin: 0 auto;
+}
+
+.container{
+    text-align: center;
+}
+
+
+.keyboard{
+    width:700px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.black_key{
+    position: absolute;
+    width:50px;
+    height: 250px;
+    background-color: black;
+}
+
+.b1{
+    left: 80px;
+}
+.b2{
+    left:180px;
+}
+
+.b3{
+    left:380px;
+}
+
+.b4{
+    left:480px;
+}
+.b5{
+    left:580px;
+}
+
+
+button{
+    display:block;
+    float:left;
+    }
+
+
+#area_show_clicked_key{
+    width:100px;
+    height: 100px;
+    margin:0 auto;
+}

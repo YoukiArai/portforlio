@@ -1,0 +1,39 @@
+.text-centering{ 
+    /* just for centering the text */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+ }
+ .main{
+   /* base animation setting */
+   transition:  .8s;
+   width: 100px;
+   height: 70px;
+   margin-left:30px;
+   margin-top: 30px;
+   transform: scale(1,1) translateY(0);
+   background:orange;
+   border-radius: 70px 70px 40px 40px / 60px 60px 30px 30px;
+ }
+ .push-puni {
+    /* The animation for pushing down */
+   transform: scale(1.2,.8) translateY(20%);
+ }
+ .start-puni {
+    /* The bounce animation with release pushing */
+    transition: 0s;  
+    animation: animation_puni 1s;
+ }
+  @keyframes animation_puni {
+     /* main keyframe animation for bouncing */
+      0%   { transform: scale(.9,1.05)      translateY(0); }
+      15%  { transform: scale(1.1,.9)   translateY(10%); }
+      30%  { transform: scale(1,1)   translateY(0); }
+      45%  { transform: scale(1.05,.95) translateY(5%); }
+      60%  { transform: scale(1,1)      translateY(0); }
+      75%  { transform: scale(1.02,.98) translateY(2%); }
+      90%  { transform: scale(1,1)      translateY(0); }
+      100% { transform: scale(1,1)      translateY(0); }
+  }
+ 

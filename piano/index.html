@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>ピアノ課題</title>
+ <meta name="description" content="ディスクリプションを入力">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="style_puni.css">
+ <!-- [if lt IE 9] -->
+ <!-- [endif] -->
+ <script src="main.js"></script>
+ <script src="puni_anime.js"></script>
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ </head>
+ <body>
+
+
+
+<!--ピアノ表示ゾーン-->
+ <div class="keyboard"> 
+    <img class="neko_logo puni" id="neko_logo"src="image/nekopiano_logo.001.png">
+    <!--吹き出し-->
+    
+    <!--キーボード（猫）をひとまとめにする-->
+    <div class="keys">
+        <div id="area_show_clicked_key">
+            <h1 id="char_clicked_key"></h1>
+        </div>
+        <div class="key key_1 puni" id="key_1">
+            <button class="key_button" id="do" type="button" value = "ド" onclick="show_char(this.value,1000)"></button>
+        </div>
+        <div class="key key_2 puni" id="key_2">
+            <button class="key_button" id="re" type="button" value = "レ" onclick="show_char(this.value,1000)"></button>
+        </div>
+        <div class="key key_3 puni" id="key_3">
+            <button class="key_button" id="mi" type="button" value = "ミ" onclick="show_char(this.value,1000)"></button>
+        </div>
+        <div class="key key_4 puni" id="key_4">
+            <button class="key_button" id="fa" type="button" value = "ファ" onclick="show_char(this.value,1000)"></button>
+        </div>
+        <div class="key key_5 puni" id="key_5">
+            <button class="key_button" id="so" type="button" value = "ソ" onclick="show_char(this.value,1000)"></button>
+        </div>
+        <div class="key key_6 puni" id="key_6">
+            <button class="key_button" id="ra" type="button" value = "ラ" onclick="show_char(this.value,1000)"></button>
+        </div>
+        <div class="key key_7 puni" id="key_7">
+            <button class="key_button" id="si" type="button" value = "シ" onclick="show_char(this.value,1000)"></button>
+        </div>
+        <!-- <button class="black_key b1"></button>  
+        <button class="black_key b2"></button>  
+        <button class="black_key b3"></button>  
+        <button class="black_key b4"></button>
+        <button class="black_key b5"></button> -->
+    </div>
+
+    <!--自動演奏ボタン-->
+    <div class="auto_keys">
+        <div class="key key_auto">
+            <button id="button_auto" class="key_button" type="button" onclick="clicked_auto()">自動演奏機能</button>
+        </div>
+        <div class="key key_auto">
+            <button class="button_auto key_button" type="button" onclick="stop_playing()">演奏停止</button>
+        </div>
+    </div>
+</div>
+ 
+
+<div class="container">
+<!--  <div class="title_pack">
+        <img class="img_nekonote" src="image/肉球のアイコン1.png">
+        <h2 class="neko_title">ねこぴあの</h2>
+        <img class="img_nekonote"src="image/肉球のアイコン1.png">
+    </div> -->
+       
+
+<div class="clear"></div>
+
+<div class="howto">
+    
+</div>
+
+
+
+
+
+</div>
+
+<script>
+
+//ここからグローバル変数
+let clear_char = ()=>{$("#char_clicked_key").text("")};
+
+
+let char_clicked_key = document.getElementById("char_clicked_key");
+let btn_auto = document.getElementById("button_auto");
+
+let neko_logo = document.getElementById("neko_logo");
+
+let fukidashi = document.getElementById(area_show_clicked_key);
+let wait_a_second;
+
+// //1秒
+// let quater_note = 1000;
+// //0.25秒
+// let sixteenth_note = 250;
+// //0.5秒　ベース
+// let einth_note = 500;
+// //4秒
+// let whole_note = 4000;
+// //2秒
+// let two_part_note = 2000;
+// //休符
+// let rest = "";
+
+//音符の長さ
+//1秒
+let quater_note = 4;
+//0.25秒
+let sixteenth_note = 1;
+//0.5秒　ベース
+let einth_note = 2;
+//4秒
+let whole_note = 16;
+//2秒
+let two_part_note = 8;
+//休符
+let rest = "休";
+let base_note = 250;
+
+//let kirakiraboshi = [{note:'ド',long:quater_note},{note:'レ',long:einth_note},{note:'ミ',long:two_part_note}];
+
+//楽譜
+let kirakiraboshi = [{note:'ド',long:einth_note},{note:rest,long:einth_note},{note:'ド',long:einth_note},{note:rest,long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:two_part_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ド',	long:two_part_note},	
+    {note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:two_part_note},	
+    {note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:two_part_note},
+    {note:'ド',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ド',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:two_part_note},
+    {note:'ファ',long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ド',	long:whole_note},{note:'終',lonh:0}]	
+
+let chulip = [{note:'ド',	long:einth_note},{note:'レ',long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ソ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'レ',	long:quater_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ソ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'ド',	long:quater_note},	{note:'ソ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ソ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ミ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ソ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ラ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ラ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ソ',	long:quater_note},	{note:'ミ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ミ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'レ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'レ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ド',	long:whole_note},{note:'終',long:0}]																																																												
+
+let i =0;
+let byou= 0
+let flag_playing = 0
+let auto
+//let fukidashi = $("#area_show_clicked_key");
+
+//吹き出し（音名表示エリア）の各音階共通の位置(縦)
+ //let neko_pos_1 = $('#key_1').offset;
+ //let y_fukidashi = neko_pos_1.top +130
+let y_fukidashi = 325;
+//吹き出し（音名表示エリア）の音階ごとの位置(横)
+let do_x_fukidashi = 125;
+let re_x_fukidashi = 280;
+let mi_x_fukidashi = 435;
+let fa_x_fukidashi = 590;
+let so_x_fukidashi = 745;
+let ra_x_fukidashi = 900;
+let si_x_fukidashi = 1055;
+
+//猫の鳴き声読み込み(各音階ごと)
+var meow_do = new Audio('meow_01.mp3');
+var meow_re = new Audio('meow_02.mp3');
+var meow_mi = new Audio('meow_03.mp3');
+var meow_fa = new Audio('meow_04.mp3');
+var meow_so = new Audio('meow_05.mp3');
+var meow_ra = new Audio('meow_06.mp3');
+var meow_si = new Audio('meow_07.mp3');
+//グローバル変数ここまで
+
+function make_gakuhu(){
+    var a = new FileReader();
+// 表示
+    console.log(lines);
+}
+
+//ここから関数
+//吹き出しを非表示にする。
+function clear_fukidashi(){
+    $("#area_show_clicked_key").hide();
+}
+
+function play_doremi(inp_key){
+
+    switch(inp_key){
+        case "ド":
+        $("#area_show_clicked_key").show()
+        meow_do.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:do_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.001.png)');
+        break;
+        
+        case "レ":
+        $("#area_show_clicked_key").show()
+        meow_re.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:re_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.002.png)');
+        break;
+        
+        case "ミ":
+        $("#area_show_clicked_key").show()
+        meow_mi.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:mi_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.003.png)');
+        break;
+        
+        case "ファ":
+        $("#area_show_clicked_key").show()
+        meow_fa.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:fa_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.004.png)');
+        break;
+        
+        case "ソ":
+        $("#area_show_clicked_key").show()
+        meow_so.play();
+         $("#area_show_clicked_key").offset({top:y_fukidashi, left:so_x_fukidashi});
+         $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.005.png)');
+        break;
+       
+        case "ラ":
+        $("#area_show_clicked_key").show()
+        meow_ra.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:ra_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.006.png)');
+        break;
+        
+        case "シ":
+        $("#area_show_clicked_key").show()
+        meow_si.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:si_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.007.png)');
+        break;
+
+        case "休":
+        $("#area_show_clicked_key").hide();
+        break
+    }
+
+}
+
+
+let flag_fukidashi = 0
+let timerId                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+//押されたキーボードの音階を表示する
+function show_char(show_key_char,show_time){
+
+    if(flag_fukidashi == 1){
+        clearTimeout(timerId);
+        flag_fukidashi = 0;
+    }
+    //clearTimeout(wait_a_second);
+    //$("#char_clicked_key").text(show_key_char);
+
+    //押されたキーを判別する
+    switch(show_key_char){
+        case "ド":
+        $("#area_show_clicked_key").show()
+        meow_do.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:do_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.001.png)');
+        break;
+        
+        case "レ":
+        $("#area_show_clicked_key").show()
+        meow_re.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:re_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.002.png)');
+        break;
+        
+        case "ミ":
+        $("#area_show_clicked_key").show()
+        meow_mi.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:mi_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.003.png)');
+        break;
+        
+        case "ファ":
+        $("#area_show_clicked_key").show()
+        meow_fa.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:fa_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.004.png)');
+        break;
+        
+        case "ソ":
+        $("#area_show_clicked_key").show()
+        meow_so.play();
+         $("#area_show_clicked_key").offset({top:y_fukidashi, left:so_x_fukidashi});
+         $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.005.png)');
+        break;
+       
+        case "ラ":
+        $("#area_show_clicked_key").show()
+        meow_ra.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:ra_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.006.png)');
+        break;
+        
+        case "シ":
+        $("#area_show_clicked_key").show()
+        meow_si.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:si_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.007.png)');
+        break;
+
+        case "休":
+        $("#area_show_clicked_key").hide();
+        break
+    }
+    //wait_a_second = setTimeout(clear_char,show_time);
+    timerId = setTimeout(clear_fukidashi,show_time);
+    flag_fukidashi = 1;
+    //$("#area_show_clicked_key").hide();
+}
+
+//function a(){
+//    $('#char_clicked_key').text('a');
+//    i = i+1;
+//}
+
+let y = 0;
+let duration = 0;
+
+//自動演奏機能用の音符を表示させる処理
+function aaaa(){
+    //aaa.textContent = kirakiraboshi[y]["note"];
+
+    switch(chulip[y]["note"]){
+        case "ド":
+        $("#area_show_clicked_key").show()
+        meow_do.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:do_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.001.png)');
+        break;
+        
+        case "レ":
+        $("#area_show_clicked_key").show()
+        meow_re.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:re_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.002.png)');
+        break;
+        
+        case "ミ":
+        $("#area_show_clicked_key").show()
+        meow_mi.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:mi_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.003.png)');
+        break;
+        
+        case "ファ":
+        $("#area_show_clicked_key").show()
+        meow_fa.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:fa_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.004.png)');
+        break;
+        
+        case "ソ":
+        $("#area_show_clicked_key").show()
+        meow_so.play();
+         $("#area_show_clicked_key").offset({top:y_fukidashi, left:so_x_fukidashi});
+         $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.005.png)');
+        break;
+       
+        case "ラ":
+        $("#area_show_clicked_key").show()
+        meow_ra.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:ra_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.006.png)');
+        break;
+        
+        case "シ":
+        $("#area_show_clicked_key").show()
+        meow_si.play();
+        $("#area_show_clicked_key").offset({top:y_fukidashi, left:si_x_fukidashi});
+        $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.007.png)');
+        break;
+
+        case "終":
+            clear_fukidashi();
+            turn_on_button();
+        break;
+    }
+
+    //音が長い場合の処理
+    if(duration == 0){
+        duration = kirakiraboshi[y]["long"];
+    }
+    duration--;
+
+    if(duration==0){
+        y++;
+    }
+}
+
+//ピアノのキーを入力された時の処理
+//音階を受け取り、
+function set_note(get_note){
+
+    switch(get_note){
+        case "ド":
+            $("#area_show_clicked_key").show()
+            meow_do.play();
+            $("#area_show_clicked_key").offset({top:y_fukidashi, left:do_x_fukidashi});
+            $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.001.png)');
+            break;
+            
+        case "レ":
+            $("#area_show_clicked_key").show()
+            meow_re.play();
+            $("#area_show_clicked_key").offset({top:y_fukidashi, left:re_x_fukidashi});
+            $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.002.png)');
+            break;
+            
+        case "ミ":
+            $("#area_show_clicked_key").show()
+            meow_mi.play();
+            $("#area_show_clicked_key").offset({top:y_fukidashi, left:mi_x_fukidashi});
+            $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.003.png)');
+            break;
+            
+        case "ファ":
+            $("#area_show_clicked_key").show()
+            meow_fa.play();
+            $("#area_show_clicked_key").offset({top:y_fukidashi, left:fa_x_fukidashi});
+            $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.004.png)');
+            break;
+            
+        case "ソ":
+            $("#area_show_clicked_key").show()
+            meow_so.play();
+            $("#area_show_clicked_key").offset({top:y_fukidashi, left:so_x_fukidashi});
+            $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.005.png)');
+            break;
+        
+        case "ラ":
+            $("#area_show_clicked_key").show()
+            meow_ra.play();
+            $("#area_show_clicked_key").offset({top:y_fukidashi, left:ra_x_fukidashi});
+            $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.006.png)');
+            break;
+            
+        case "シ":
+            $("#area_show_clicked_key").show()
+            meow_si.play();
+            $("#area_show_clicked_key").offset({top:y_fukidashi, left:si_x_fukidashi});
+            $('#area_show_clicked_key').css('background-image', 'url(image/吹き出し.007.png)');
+            break;
+        }
+}
+
+
+
+
+
+
+
+// function clicked_auto(){
+
+//     if(flag_playing == 0){
+//         auto =  setInterval("auto_playing(kirakiraboshi)",1000);
+    
+//         btn_auto.textContent = "演奏中止";
+//         flag_playing = 1;
+
+//         score = kirakiraboshi;
+//         let num = Math.floor(Math.random() * 2) + 1;
+//         let kyok;
+
+   
+//         console.log("a")
+//     }else if(flag_playing == 1){
+//         clearInterval(a);
+//     }
+    
+
+// }
+
+
+//ボタン有効/無効切り替えに使用
+let button_do = document.getElementById("do");
+let button_re = document.getElementById("re");
+let button_mi = document.getElementById("mi");
+let button_fa = document.getElementById("fa");
+let button_so = document.getElementById("so");
+let button_ra = document.getElementById("ra");
+let button_si = document.getElementById("si");
+
+
+//ボタン全部無効化
+function turn_off_button(){
+    button_do.setAttribute("disabled",true);
+    button_re.setAttribute("disabled",true);
+    button_mi.setAttribute("disabled",true);
+    button_fa.setAttribute("disabled",true);
+    button_so.setAttribute("disabled",true);
+    button_ra.setAttribute("disabled",true);
+    button_si.setAttribute("disabled",true);
+    console.log("turn_off押されたよ");
+}
+
+//ボタン全部有効化
+function turn_on_button(){
+    button_do.removeAttribute("disabled");
+    button_re.removeAttribute("disabled");
+    button_mi.removeAttribute("disabled");
+    button_fa.removeAttribute("disabled");
+    button_so.removeAttribute("disabled");
+    button_ra.removeAttribute("disabled");
+    button_si.removeAttribute("disabled");
+}
+
+let musick_list=[kirakiraboshi,chulip]
+
+//自動演奏ボタンが押された際の処理
+function clicked_auto(){
+
+    neko_logo.src = "image/ensouchu.003.png";
+
+    turn_off_button();
+
+    if(flag_playing == 0){
+        btn_auto.textContent = "演奏中止";
+        flag_playing = 1;
+
+        score = kirakiraboshi;
+        let num = Math.floor(Math.random() * 2) + 1;
+        let kyok;
+
+        if(num == 1){
+            kyoku = kirakiraboshi;
+        }else{
+            kyoku = chulip;
+        }
+
+        kyoku = musick_list[num];
+
+
+        //楽譜に合わせて音階を表示させる処理
+        setInterval(aaaa,250);
+    }
+
+    
+}
+
+
+    //for(let i in score){
+      //  show_char(score[i]["note"],score[i]["long"]);
+    //}
+//         console.log(kyoku[1]["note"])
+
+
+//         for(let i =0;i < kirakiraboshi.length;i++){
+//             if(i==0){
+//                 byou = 0;
+//             }else{
+//                 byou = byou + kirakiraboshi[i-1]["long"];
+//             }
+//             if(flag_playing==0){
+//                 break;
+//             }
+//             setTimeout(function(){aaa.textContent=kirakiraboshi[i]["note"]}, byou);
+//             console.log(flag_playing);
+//         }
+//     }else if(flag_playing == 1){
+//         flag_playing = 0;
+//         btn_auto.textContent = "自動演奏機能";
+//         console.log(flag_playing)
+//     }
+// }
+
+    
+
+
+function stop_playing(){
+    clearTimeout(auto);
+    flag_fukidashi = 0;
+};
+
+
+
+
+
+//猫クリック時のぷにっとしたアニメーション。
+//引用元：https://divrots.com/2019/10/26/css-js-animation-bounds/
+  $('.puni').on({
+    mousedown:function(){
+      $(this).removeClass("start-puni");
+      setTimeout(()=>{
+        if(!$(this).hasClass("start-puni")){
+          $(this).addClass("push-puni");
+        }
+      },100)
+    },
+    mouseout:function(){
+      if($(this).hasClass('push-puni')){
+        $(this).removeClass("push-puni").addClass("start-puni");
+      }
+    },
+    mouseup:function(){
+      $(this).removeClass("push-puni").addClass("start-puni");
+    },
+    animationend:function(){
+      $(this).removeClass("start-puni");
+    }
+  })
+
+
+
+     
+</script>
+
+<footer>
+
+</footer>
+
+
+
+
+ </body>
+ </html>

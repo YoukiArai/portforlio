@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>ピアノ課題</title>
+ <meta name="description" content="ディスクリプションを入力">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="style.css">
+ <!-- [if lt IE 9] -->
+ <!-- [endif] -->
+ <script src="main.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ </head>
+ <body>
+ <!----- header----->
+ <header>ヘッダー</header>
+
+ 
+
+<div class="container">
+
+    <h2>楽しいピアノ
+    </h2>
+
+    <h2>
+        使い方
+    </h2>
+
+    <div id="area_show_clicked_key">
+        <h1 id="char_clicked_key"> </h1>
+    </div>
+
+    <div class="keyboard"> 
+        <button class="key" id="do" type="button" value = "ド" onclick="show_char(this.value,1000)">ド</button>
+        <button class="key" id="re" type="button" value = "レ" onclick="show_char(this.value,1000)">レ</button>
+        <button class="key" id="mi" type="button" value = "ミ" onclick="show_char(this.value,1000)">ミ</button>
+        <button class="key" id="fa" type="button" value = "ファ" onclick="show_char(this.value,1000)">ファ</button>
+        <button class="key" id="so" type="button" value = "ソ" onclick="show_char(this.value,1000)">ソ</button>
+        <button class="key" id="ra" type="button" value = "ラ" onclick="show_char(this.value,1000)">ラ</button>
+        <button class="key" id="si" type="button" value = "シ" onclick="show_char(this.value,1000)">シ</button>
+        
+        <button class="black_key b1"></button>  
+        <button class="black_key b2"></button>  
+        <button class="black_key b3"></button>  
+        <button class="black_key b4"></button>
+        <button class="black_key b5"></button>
+    </div>
+
+
+</div>
+
+<button id="button_auto" type="button" onclick="clicked_auto()">自動演奏機能</button>
+<button class="button_auto" type="button" onclick="stop_playing()">演奏停止</button>
+
+
+
+<script>
+
+let clear_char = ()=>{$("#char_clicked_key").text("")};
+let wait_a_second;
+
+// //1秒
+// let quater_note = 1000;
+// //0.25秒
+// let sixteenth_note = 250;
+// //0.5秒　ベース
+// let einth_note = 500;
+// //4秒
+// let whole_note = 4000;
+// //2秒
+// let two_part_note = 2000;
+// //休符
+// let rest = "";
+
+
+//1秒
+let quater_note = 4;
+//0.25秒
+let sixteenth_note = 1;
+//0.5秒　ベース
+let einth_note = 2;
+//4秒
+let whole_note = 16;
+//2秒
+let two_part_note = 8;
+//休符
+let rest = "";
+
+
+let base_note = 250;
+
+//let kirakiraboshi = [{note:'ド',long:quater_note},{note:'レ',long:einth_note},{note:'ミ',long:two_part_note}];
+
+let kirakiraboshi = [{note:'ド',long:einth_note},{note:rest,long:einth_note},{note:'ド',long:einth_note},{note:rest,long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:two_part_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ド',	long:two_part_note},	
+    {note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:two_part_note},	
+    {note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:two_part_note},
+    {note:'ド',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ド',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ラ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ソ',	long:two_part_note},
+    {note:'ファ',long:einth_note},	{note:rest,	long:einth_note},	{note:'ファ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ミ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'レ',	long:einth_note},	{note:rest,	long:einth_note},	{note:'ド',	long:whole_note}]	
+
+let chulip = [{note:'ド',	long:einth_note},{note:'レ',long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ソ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'レ',	long:quater_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:quater_note},	{note:'ソ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ド',	long:einth_note},	{note:'レ',	long:einth_note},	{note:'ミ',	long:einth_note},	{note:'ド',	long:quater_note},	{note:'ソ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ソ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ミ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ソ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ラ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ラ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ソ',	long:quater_note},	{note:'ミ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ミ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'レ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'レ',	long:sixteenth_note},	{note:rest,	long:sixteenth_note},	{note:'ド',	long:whole_note}]																																																												
+
+let i =0;
+
+let aaa = document.getElementById("char_clicked_key");
+let btn_auto = document.getElementById("button_auto");
+
+
+
+let byou= 0
+let flag_playing = 0
+let auto
+
+function make_gakuhu(){
+
+    var a = new FileReader();
+
+// 表示
+    console.log(lines)
+}
+
+
+
+
+function show_char(show_key_char,show_time){
+    clearTimeout(wait_a_second);
+    $("#char_clicked_key").text(show_key_char);
+    //wait_a_second = setTimeout(clear_char,show_time);
+    setTimeout(clear_char,show_time);
+}
+
+//function a(){
+//    $('#char_clicked_key').text('a');
+//    i = i+1;
+//}
+
+let y = 0;
+let duration = 0;
+function aaaa(){
+    aaa.textContent = kirakiraboshi[y]["note"];
+
+    if(duration == 0){
+        duration = kirakiraboshi[y]["long"];
+    }
+
+    duration--;
+
+    if(duration==0){
+        y++;
+    }
+}
+
+
+// function clicked_auto(){
+
+//     if(flag_playing == 0){
+//         auto =  setInterval("auto_playing(kirakiraboshi)",1000);
+    
+//         btn_auto.textContent = "演奏中止";
+//         flag_playing = 1;
+
+//         score = kirakiraboshi;
+//         let num = Math.floor(Math.random() * 2) + 1;
+//         let kyok;
+
+   
+//         console.log("a")
+//     }else if(flag_playing == 1){
+//         clearInterval(a);
+//     }
+    
+
+// }
+
+
+
+function clicked_auto(){
+
+    if(flag_playing == 0){
+        btn_auto.textContent = "演奏中止";
+        flag_playing = 1;
+
+        score = kirakiraboshi;
+        let num = Math.floor(Math.random() * 2) + 1;
+        let kyok;
+
+        if(num == 1){
+            kyoku = kirakiraboshi;
+        }else{
+            kyoku = chulip;
+        }
+
+        setInterval(aaaa,250);
+        console.log("setIntervalの後");
+
+    }
+}
+
+
+    //for(let i in score){
+      //  show_char(score[i]["note"],score[i]["long"]);
+    //}
+//         console.log(kyoku[1]["note"])
+
+
+//         for(let i =0;i < kirakiraboshi.length;i++){
+//             if(i==0){
+//                 byou = 0;
+//             }else{
+//                 byou = byou + kirakiraboshi[i-1]["long"];
+//             }
+//             if(flag_playing==0){
+//                 break;
+//             }
+//             setTimeout(function(){aaa.textContent=kirakiraboshi[i]["note"]}, byou);
+//             console.log(flag_playing);
+//         }
+//     }else if(flag_playing == 1){
+//         flag_playing = 0;
+//         btn_auto.textContent = "自動演奏機能";
+//         console.log(flag_playing)
+//     }
+// }
+
+    
+
+function stop_playing(){
+    clearTimeout(auto);
+}
+     
+</script>
+
+
+
+
+
+ </body>
+ </html>

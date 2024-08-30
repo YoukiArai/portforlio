@@ -1,0 +1,232 @@
+/* .key{
+    margin: 0;
+    width:100px;
+    height:500px;
+    padding: 0;
+    background-color: antiquewhite;
+    font-size: 50px;
+    padding-top: 350px;
+}
+*/
+     
+@font-face {
+    font-family: 'nekomoji';
+    src: url(/font/nekomoji.ttf);
+ }
+
+@font-face {
+    font-family: 'cpfont';
+    src: url(/font/CPFont.otf);
+ }
+
+ @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Darumadrop+One&display=swap');
+
+
+
+
+
+ .title_pack{
+     background-color: moccasin;
+     border-radius: 20px;
+     
+     display: inline-block;
+ }
+
+
+
+.key_button{
+    width:100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid transparent;
+}
+
+.key_auto{
+    background-image: url(image/肉球のアイコン1.png);
+    background-size: cover;
+}
+
+.auto_keys{
+    position: absolute;
+    top: 75%;
+    left:50%;
+}
+
+.key_1{
+    background-image: url(image/neko.001.png);
+    background-size:cover;  
+    top:;
+    left:;
+}
+
+.key_2{
+    background-image: url(image/neko.002.png);
+    background-size:cover;  
+    top:;
+    left:;
+}
+.key_3{
+    background-image: url(image/neko.003.png);
+    background-size:cover; 
+    top:;
+    left:; 
+}
+.key_4{
+    background-image: url(image/neko.004.png);
+    background-size:cover; 
+    top:;
+    left:; 
+}
+.key_5{
+    background-image: url(image/neko.005.png);
+    background-size:cover;  
+}
+.key_6{
+    background-image: url(image/neko.006.png);
+    background-size:cover;  
+}
+.key_7{
+    background-image: url(image/neko.007.png);
+    background-size:cover;  
+}
+
+body{
+    background-image: url(image/nekonote_back.001.png);
+    
+}
+
+.keys{
+    width:100%;
+    position:absolute;
+    top:60%;
+    left: 9%;
+}
+
+.neko_logo{
+    width:970px;
+    height:540px;
+    position: absolute;
+    top:-10%;
+    left:15%;
+}
+.key{
+    
+    width:150px;
+    height:150px;
+    display: inline-block;
+    margin: 5px;
+    transition:.8s;
+
+}
+
+.container{
+    width:1080px;
+    margin: 0 auto;
+}
+
+.container{
+    text-align: center;
+    background-color:	RGB(181, 101, 44);
+    border: thick double black ; 
+    border-radius: 20px;
+}
+
+.neko_title{
+    display: inline-block;
+    font-family: "Cherry+Bomb+";
+    font-size: 80px;
+    color: rgb(50,50,50);
+
+
+}
+
+.img_nekonote{
+    width:100px;
+    height: 100px;
+    display: inline-block;
+   
+}
+
+
+.keyboard{
+    width:100%;
+    position: relative;
+    margin: 0 auto;
+    height: 100vh;
+    background-image: url("image/back_neko.jpg");
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 15px;
+}
+
+.black_key{
+    position: absolute;
+    width:50px;
+    height: 250px;
+    background-color: black;
+}
+
+.b1{
+    left: 80px;
+}
+.b2{
+    left:180px;
+}
+
+.b3{
+    left:380px;
+}
+
+.b4{
+    left:480px;
+}
+.b5{
+    left:580px;
+}
+
+
+button{
+    display:block;
+    float:left;
+    }
+
+
+#area_show_clicked_key{
+    width:200px;
+    height: 175px;
+    margin:0 auto;
+    /*background-image: url(image/fukidashi.png);*/
+    color: rgb(10,10,10);
+    background-size: cover;
+    position: absolute;
+    top:28%;
+    left:2%;
+    display: inline-block;
+}
+
+#char_clicked_key{
+    position:absolute;
+    top:10%;
+    left: 40%;
+}
+
+.clear{
+    clear: both;
+}
+
+.howto{
+    background-image: url("image/blackboad.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+}
+
+footer{
+    height: 200px;
+    background-color: mediumseagreen;
+}
+
+
+
